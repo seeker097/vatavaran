@@ -1,32 +1,33 @@
 import { useState, type FormEvent } from 'react'
 
-function SearchBar() {
+type SearchBarProps = {
+  onSearch: (city: string) => void
+}
+
+function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('')
-  const [submittedCity, setSubmittedCity] = useState('')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSubmittedCity(query.trim())
+    const trimmedQuery = query.trim()
+    if (trimmedQuery) {
+      onSearch(trimmedQuery)
+    }
   }
 
   return (
-    <>
-      <form className="search" onSubmit={handleSubmit}>
-        <input
-          className="search__input"
-          type="text"
-          placeholder="Search for a city..."
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <button className="search__button" type="submit">
-          Search
-        </button>
-      </form>
-      {submittedCity && (
-        <p className="search__result">You searched for: {submittedCity}</p>
-      )}
-    </>
+    <form className="search" onSubmit={handleSubmit}>
+      <input
+        className="search__input"
+        type="text"
+        placeholder="Search for a city..."
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      <button className="search__button" type="submit">
+        Search
+      </button>
+    </form>
   )
 }
 

@@ -1,0 +1,13 @@
+export type GeocodedLocation = {
+  id: number
+  name: string
+  latitude: number
+  longitude: number
+  timezone: string
+  country?: string
+  admin1?: string
+}
+
+export type GeocodingResponse = {
+  results?: GeocodedLocation[]
+}
